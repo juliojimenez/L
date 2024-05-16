@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   build:
+    name: Build llang
     runs-on: ubuntu-latest
 
     steps:
