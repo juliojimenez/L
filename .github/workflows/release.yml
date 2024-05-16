@@ -21,12 +21,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Make
-        run: LLANG_VERSION=${{ inputs.release }} make llang-linux-x64
+        run: LLANG_VERSION=${{ inputs.release }} make llang-linux-amd64
 
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "llang-*-linux-x64.zip"
+          artifacts: "llang-*-linux-amd64"
           generateReleaseNotes: true
           tag: ${{ inputs.release }}
 
