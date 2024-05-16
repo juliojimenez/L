@@ -23,7 +23,7 @@ jobs:
         with:
           artifacts: "llang-*-linux-x64.zip"
           generateReleaseNotes: true
-          tag: ${{ inputs.release_version }}
+          tag: ${{ inputs.release }}
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
@@ -50,5 +50,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/juliojimenez/l:${{ inputs.release_version }}
+          tags: ghcr.io/juliojimenez/l:${{ inputs.release }}
           labels: ${{ steps.meta.outputs.labels }}
