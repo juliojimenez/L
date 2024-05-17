@@ -1,3 +1,3 @@
-<img src="images/lemmy.png" width="64" />
+<img src="images/lemmy.png" width="128" />
 
 # L
