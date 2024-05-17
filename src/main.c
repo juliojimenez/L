@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include <assert.h>
 
-#define VERSION "0.0.2"
+#define VERSION "0.0.3"
 
 // 128 tokens, each 32 characters long
 char token[128][32];
@@ -55,6 +55,16 @@ int lexer(char* input) {
         }
     }
     return ti;
+}
+
+int curtok;
+
+char* nexttok() {
+    return token[curtok++];
+}
+
+char* peektok() {
+    return token[curtok];
 }
 
 int main(int argc, char** argv) {
