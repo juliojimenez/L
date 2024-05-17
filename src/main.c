@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include <assert.h>
 
-#define VERSION "0.0.3"
+#define VERSION "0.0.4"
 
 // 128 tokens, each 32 characters long
 char token[128][32];
@@ -65,6 +65,24 @@ char* nexttok() {
 
 char* peektok() {
     return token[curtok];
+}
+
+typedef struct {
+    void* car;
+    void* cdr;
+} Pair;
+
+Pair text[256];
+Pair* textptr;
+
+Pair* cons(void* x, void* y) {
+    textptr->car = x;
+    textptr->cdr = y;
+    return textptr++;
+}
+
+int ispair(void* x) {
+    return x >= (void*)&text && x < (void*)&text[256];
 }
 
 int main(int argc, char** argv) {
