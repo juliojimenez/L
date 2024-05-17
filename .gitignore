@@ -54,3 +54,4 @@ dkms.conf
 # Local files
 llang*
 build.sh
+.DS_Store
