@@ -15,7 +15,7 @@ void print_list(Pair* list) {
 }
 
 void print_exp(void* exp) {
-    if (ispair(exp)) {
+    if (istext(exp)) {
         printf("(");
         print_list(exp);
     } else {

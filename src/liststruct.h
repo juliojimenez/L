@@ -15,6 +15,6 @@ extern Pair text[256];
 extern Pair* textptr;
 
 Pair* tcons(void* x, void* y);
-int ispair(void* x);
+int istext(void* x);
 
 #endif

@@ -17,6 +17,6 @@ Pair* tcons(void* x, void* y) {
     return textptr++;
 }
 
-int ispair(void* x) {
+int istext(void* x) {
     return x >= (void*)&text && x < (void*)&text[256];
 }
