@@ -9,12 +9,14 @@ llang: \
 		src/liststruct.c \
 		src/liststruct.h \
 		src/reader.c \
-		src/reader.h
+		src/reader.h \
+		src/writer.c \
+		src/writer.h
 	clang \
 	   -fcolor-diagnostics \
 	   -fansi-escape-codes \
 	   -g \
-	   src/main.c src/lexer.c src/token.c src/liststruct.c src/reader.c \
+	   src/main.c src/lexer.c src/token.c src/liststruct.c src/reader.c src/writer.c \
        -o llang
 
 llang-tests: \
@@ -43,12 +45,14 @@ llang-darwin-arm64: \
 		src/liststruct.c \
 		src/liststruct.h \
 		src/reader.c \
-		src/reader.h
+		src/reader.h \
+		src/writer.c \
+		src/writer.h
 	clang \
 	   -fcolor-diagnostics \
 	   -fansi-escape-codes \
 	   -g \
-	   src/main.c src/lexer.c src/token.c src/liststruct.c src/reader.c \
+	   src/main.c src/lexer.c src/token.c src/liststruct.c src/reader.c src/writer.c \
 	   -o llang-$(LLANG_VERSION)-darwin-arm64
 
 llang-linux-amd64: \
@@ -60,12 +64,14 @@ llang-linux-amd64: \
 	    src/liststruct.c \
 	    src/liststruct.h \
 		src/reader.c \
-		src/reader.h
+		src/reader.h \
+		src/writer.c \
+		src/writer.h
 	clang \
 	   -fcolor-diagnostics \
 	   -fansi-escape-codes \
 	   -g \
-	   src/main.c src/lexer.c src/token.c src/liststruct.c src/reader.c \
+	   src/main.c src/lexer.c src/token.c src/liststruct.c src/reader.c src/writer.c \
 	   -o llang-$(LLANG_VERSION)-linux-amd64
 
 clean:
