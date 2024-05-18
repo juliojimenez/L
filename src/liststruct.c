@@ -3,10 +3,15 @@ typedef struct {
     void* cdr;
 } Pair;
 
+typedef struct Text {
+    char* car;
+    struct Text* cdr;
+} Text;
+
 Pair text[256];
 Pair* textptr;
 
-Pair* cons(void* x, void* y) {
+Pair* tcons(void* x, void* y) {
     textptr->car = x;
     textptr->cdr = y;
     return textptr++;

@@ -13,7 +13,7 @@ void* read_list() {
     } else {
         void* fst = read_exp();
         void* snd = read_list();
-        return cons(fst, snd);
+        return tcons(fst, snd);
     }
 }
 
