@@ -27,7 +27,7 @@ void test_reader() {
     assert(strcmp((char*)list->car, "foo") == 0);
     Pair* rest = (Pair*)list->cdr;
     Pair* inner_list = (Pair*)rest->car;
-    assert(ispair(inner_list));
+    assert(istext(inner_list));
     assert(strcmp((char*)inner_list->car, "bar") == 0);
 
     printf("test_reader passed\n");
