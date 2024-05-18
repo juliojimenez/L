@@ -3,7 +3,7 @@
 #include "reader.h"
 #include "writer.h"
 
-#define VERSION "0.0.6"
+#define VERSION "0.0.7"
 
 int main(int argc, char** argv) {
     printf("L v%s\n\n", VERSION);
