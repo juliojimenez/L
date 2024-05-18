@@ -29,14 +29,13 @@ int lexer(char* input) {
                 break;
             // everything else is a symbol
             default:
-                for (int i = 0; ; ++i) {
+                for (int i = 0;; ++i) {
                     if (input[ii] != ' ' &&
                         input[ii] != '(' &&
                         input[ii] != ')' &&
                         input[ii] != '\n' &&
                         input[ii] != '\0') {
                         token[ti][i] = input[ii++];
-                        break;
                     } else {
                         token[ti][i] = '\0';
                         break;

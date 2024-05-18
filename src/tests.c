@@ -8,20 +8,14 @@
 void test_lexer() {
     char* input = "(foo (bar) baz)";
     int token_count = lexer(input);
-    assert(token_count == 13);
+    assert(token_count == 7);
     assert(strcmp(token[0], "(") == 0);
-    assert(strcmp(token[1], "f") == 0);
-    assert(strcmp(token[2], "o") == 0);
-    assert(strcmp(token[3], "o") == 0);
-    assert(strcmp(token[4], "(") == 0);
-    assert(strcmp(token[5], "b") == 0);
-    assert(strcmp(token[6], "a") == 0);
-    assert(strcmp(token[7], "r") == 0);
-    assert(strcmp(token[8], ")") == 0);
-    assert(strcmp(token[9], "b") == 0);
-    assert(strcmp(token[10], "a") == 0);
-    assert(strcmp(token[11], "z") == 0);
-    assert(strcmp(token[12], ")") == 0);
+    assert(strcmp(token[1], "foo") == 0);
+    assert(strcmp(token[2], "(") == 0);
+    assert(strcmp(token[3], "bar") == 0);
+    assert(strcmp(token[4], ")") == 0);
+    assert(strcmp(token[5], "baz") == 0);
+    assert(strcmp(token[6], ")") == 0);
     printf("test_lexer passed\n");
 }
 
@@ -30,10 +24,11 @@ void test_reader() {
     void* result = read(input);
 
     Pair* list = (Pair*)result;
-    assert(strcmp((char*)list->car, "f") == 0);
+    assert(strcmp((char*)list->car, "foo") == 0);
     Pair* rest = (Pair*)list->cdr;
     Pair* inner_list = (Pair*)rest->car;
-    assert(ispair(inner_list) == 0);
+    assert(ispair(inner_list));
+    assert(strcmp((char*)inner_list->car, "bar") == 0);
 
     printf("test_reader passed\n");
 }
