@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <assert.h>
+#include "reader.h"
 
 #define VERSION "0.0.5"
 
