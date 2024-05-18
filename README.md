@@ -4,4 +4,4 @@
 
 # L
 
-L is a simple Lisp written in C.
+L Programing Language
