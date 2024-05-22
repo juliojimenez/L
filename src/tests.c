@@ -80,6 +80,15 @@ void test_0006_division() {
     printf("[0006] test_division passed\n");
 }
 
+void test_0007_modulo() {
+    char input[] = "(% 7 3)";
+    void* result = read(input);
+    eval(result);
+    assert(strcmp(ret, "1") == 0);
+
+    printf("[0007] test_modulo passed\n");
+}
+
 int main() {
     test_0000_lexer();
     test_0001_reader();
@@ -88,5 +97,6 @@ int main() {
     test_0004_subtraction();
     test_0005_multiplication();
     test_0006_division();
+    test_0007_modulo();
     return 0;
 }
