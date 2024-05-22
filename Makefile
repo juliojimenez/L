@@ -30,12 +30,14 @@ llang-tests: \
 		src/liststruct.c \
 		src/liststruct.h \
 		src/reader.c \
-		src/reader.h
+		src/reader.h \
+		src/writer.c \
+		src/writer.h
 	clang \
 	   -fcolor-diagnostics \
 	   -fansi-escape-codes \
 	   -g \
-	   src/tests.c src/lexer.c src/token.c src/liststruct.c src/reader.c \
+	   src/tests.c src/lexer.c src/token.c src/liststruct.c src/reader.c src/writer.c \
        -o llang-tests
 
 llang-darwin-arm64: \
