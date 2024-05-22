@@ -4,6 +4,25 @@
 
 The L programing language is a simple Lisp-like language. It is a work in progress.
 
+- [Features](#features)
+- [Installation](#installation)
+  - [macOS](#macos)
+  - [Linux](#linux)
+- [REPL](#repl)
+- [Syntax](#syntax)
+  - [Arithmetic](#arithmetic)
+    - [Addition](#addition)
+    - [Subtraction](#subtraction)
+    - [Multiplication](#multiplication)
+    - [Division](#division)
+    - [Modulus](#modulus)
+  - [Predicates](#predicates)
+    - [Equal](#equal)
+  - [Branching](#branching)
+    - [if](#if)
+  - [Environments](#environments)
+    - [define](#define)
+
 ## Features
 
 L aims to closely follow the Revised^7 Report on the Algorithmic Language Scheme (R7RS).
@@ -13,22 +32,22 @@ L aims to closely follow the Revised^7 Report on the Algorithmic Language Scheme
 ### macOS
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.10/llang-0.0.10-darwin-arm64
-mv llang-0.0.10-darwin-arm64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.11/llang-0.0.11-darwin-arm64
+mv llang-0.0.11-darwin-arm64 llang
 ```
 
 ### Linux
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.10/llang-0.0.10-linux-amd64
-mv llang-0.0.10-linux-amd64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.11/llang-0.0.11-linux-amd64
+mv llang-0.0.11-linux-amd64 llang
 ```
 
 ## REPL
 
 ```bash
 ./llang
-L v0.0.10
+L v0.0.11
 
 >
 ```
@@ -87,7 +106,7 @@ L v0.0.10
 
 ### Branching
 
-#### If
+#### if
 
 ```lisp
 > (if #t (+ 1 2) (+ 2 3))
@@ -96,4 +115,23 @@ L v0.0.10
 5
 > (if (= 1 2) (+ 1 2) (+ 2 3))
 5
+```
+
+### Environments
+
+#### define
+
+```lisp
+> (define a 10)
+done
+> (define b a)
+done
+> a
+10
+> b
+10
+> (define x (+ 1 2))
+done
+> x
+3
 ```

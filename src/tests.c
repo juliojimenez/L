@@ -7,7 +7,7 @@
 #include "writer.h"
 #include "eval.h"
 
-void test_lexer() {
+void test_0000_lexer() {
     char* input = "(foo (bar) baz)";
     int token_count = lexer(input);
     assert(token_count == 7);
@@ -19,10 +19,10 @@ void test_lexer() {
     assert(strcmp(token[5], "baz") == 0);
     assert(strcmp(token[6], ")") == 0);
 
-    printf("[0001] test_lexer passed\n");
+    printf("[0000] test_lexer passed\n");
 }
 
-void test_reader() {
+void test_0001_reader() {
     char input[] = "(foo (bar) baz)";
     void* result = read(input);
 
@@ -33,30 +33,50 @@ void test_reader() {
     assert(istext(inner_list));
     assert(strcmp((char*)inner_list->car, "bar") == 0);
 
-    printf("[0002] test_reader passed\n");
+    printf("[0001] test_reader passed\n");
 }
 
-void test_writer() {
+void test_0002_writer() {
     char input[] = "(foo (bar) baz)";
     void* result = read(input);
     print(result);
 
-    printf("[0003] test_writer passed\n");
+    printf("[0002] test_writer passed\n");
 }
 
-void test_addition() {
+void test_0003_addition() {
     char input[] = "(+ 1 2)";
     void* result = read(input);
     eval(result);
     assert(strcmp(ret, "3") == 0);
 
-    printf("[0004] test_addition passed\n");
+    printf("[0003] test_addition passed\n");
+}
+
+void test_0004_subtraction() {
+    char input[] = "(- 2 1)";
+    void* result = read(input);
+    eval(result);
+    assert(strcmp(ret, "1") == 0);
+
+    printf("[0004] test_subtraction passed\n");
+}
+
+void test_0005_multiplication() {
+    char input[] = "(* 2 3)";
+    void* result = read(input);
+    eval(result);
+    assert(strcmp(ret, "6") == 0);
+
+    printf("[0005] test_multiplication passed\n");
 }
 
 int main() {
-    test_lexer();
-    test_reader();
-    test_writer();
-    test_addition();
+    test_0000_lexer();
+    test_0001_reader();
+    test_0002_writer();
+    test_0003_addition();
+    test_0004_subtraction();
+    test_0005_multiplication();
     return 0;
 }
