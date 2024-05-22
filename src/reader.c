@@ -10,6 +10,11 @@ void* read_list() {
     if (tok[0] == ')') {
         nexttok();
         return NULL;
+    } else if (tok[0] == '.') {
+        nexttok();
+        tok = nexttok();
+        nexttok();
+        return tok;
     } else {
         void* fst = read_exp();
         void* snd = read_list();
@@ -19,7 +24,12 @@ void* read_list() {
 
 void* read_exp() {
     char* tok = nexttok();
-    if (tok[0] == '(') {
+    if (tok[0] == '(' && peektok()[0] == ')') {
+        nexttok();
+        return NULL;
+    } else if (tok[0] == '\'') {
+        return tcons("quote", tcons(read_exp(), NULL));
+    } else if (tok[0] == '(') {
         return read_list();
     } else {
         return tok;
