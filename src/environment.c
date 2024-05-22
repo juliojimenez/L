@@ -1,4 +1,6 @@
+#include <assert.h>
 #include <string.h>
+#include "liststruct.h"
 
 typedef struct {
     char sym[32];
@@ -11,6 +13,20 @@ Entry* entryptr = entry;
 char symbol[2048];
 char* symbolptr = symbol;
 
+Pair list[1280];
+Pair* listptr = list;
+
+int islist(void* x) {
+    return x >= (void*)&list && x < (void*)&list[1280];
+}
+
+Pair* cons(void* x, void* y) {
+    assert(islist(listptr));
+    listptr->car = x;
+    listptr->cdr = y;
+    return listptr++;
+}
+
 void* cpysym(void* sym) {
     if (sym) {
         sym = strcpy(symbolptr, sym);
@@ -19,9 +35,24 @@ void* cpysym(void* sym) {
     return sym;
 }
 
+void* cpy(Text* text) {
+    if (istext(text) || islist(text)) {
+        if (istext(text->car) || islist(text->car)) {
+            return cons(cpy((Text*)text->car), text->cdr ? cpy(text->cdr) : NULL);
+        } else {
+            return cons(cpysym(text->car), text->cdr ? cpy(text->cdr) : NULL);
+        }
+    }
+    return cpysym(text);
+}
+
 void put(void* sym, void* val) {
     strcpy(entryptr->sym, sym);
-    entryptr->val = cpysym(val);
+    if (istext(val) || islist(val)) {
+        entryptr->val = cpy(val);
+    } else {
+        entryptr->val = cpysym(val);
+    }
     entryptr++;
 }
 
