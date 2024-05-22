@@ -10,7 +10,17 @@ char ret[32];
 void* eval_exp(void* exp) {
     if (istext(exp)) {
         Text* text = exp;
-        if (strcmp("define", text->car) == 0) {
+        if (strcmp("cons", text->car) == 0) {
+            void* left = eval_exp(text->cdr->car);
+            void* right = eval_exp(text->cdr->cdr->car);
+            return cons(left, right);
+        } else if (strcmp("car", text->car) == 0) {
+            Pair* pair = eval_exp(text->cdr->car);
+            return pair->car;
+        } else if (strcmp("cdr", text->car) == 0) {
+            Pair* pair = eval_exp(text->cdr->car);
+            return pair->cdr;
+        } else if (strcmp("define", text->car) == 0) {
             void* var = text->cdr->car;
             void* val = eval_exp(text->cdr->cdr->car);
             put(var, val);
@@ -18,7 +28,11 @@ void* eval_exp(void* exp) {
         } else if (strcmp("=", text->car) == 0) {
             void* left = eval_exp(text->cdr->car);
             void* right = eval_exp(text->cdr->cdr->car);
-            return strcmp(left, right) == 0 ? "#t" : "#f";
+            if (left && right) {
+                return strcmp(left, right) == 0 ? "#t" : "#f";
+            } else {
+                return left == right ? "#t" : "#f";
+            }
         } else if (strcmp("if", text->car) == 0) {
             void* conditional = eval_exp(text->car);
             if (strcmp("#t", text->cdr->car) == 0) {
