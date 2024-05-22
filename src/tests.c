@@ -71,6 +71,15 @@ void test_0005_multiplication() {
     printf("[0005] test_multiplication passed\n");
 }
 
+void test_0006_division() {
+    char input[] = "(/ 6 2)";
+    void* result = read(input);
+    eval(result);
+    assert(strcmp(ret, "3") == 0);
+
+    printf("[0006] test_division passed\n");
+}
+
 int main() {
     test_0000_lexer();
     test_0001_reader();
@@ -78,5 +87,6 @@ int main() {
     test_0003_addition();
     test_0004_subtraction();
     test_0005_multiplication();
+    test_0006_division();
     return 0;
 }
