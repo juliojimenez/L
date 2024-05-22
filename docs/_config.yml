@@ -2,5 +2,5 @@ title: L
 logo: /lemmy.png
 description: L Programming Language
 show_downloads: true
-google_analytics: G-ZW7TK7DZRJ
+google_analytics:
 remote_theme: pages-themes/minimal@v0.2.0
