@@ -13,22 +13,22 @@ L aims to closely follow the Revised^7 Report on the Algorithmic Language Scheme
 ### macOS
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.8/llang-0.0.8-darwin-arm64
-mv llang-0.0.8-darwin-arm64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.10/llang-0.0.10-darwin-arm64
+mv llang-0.0.10-darwin-arm64 llang
 ```
 
 ### Linux
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.8/llang-0.0.8-linux-amd64
-mv llang-0.0.8-linux-amd64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.10/llang-0.0.10-linux-amd64
+mv llang-0.0.10-linux-amd64 llang
 ```
 
 ## REPL
 
 ```bash
 ./llang
-L v0.0.8
+L v0.0.10
 
 >
 ```
@@ -83,4 +83,17 @@ L v0.0.8
 #t
 > (= (+ 1 1) 2)
 #t
+```
+
+### Branching
+
+#### If
+
+```lisp
+> (if #t (+ 1 2) (+ 2 3))
+3
+> (if #f (+ 1 2) (+ 2 3))
+5
+> (if (= 1 2) (+ 1 2) (+ 2 3))
+5
 ```

@@ -12,6 +12,13 @@ void* eval_exp(void* exp) {
             void* left = eval_exp(text->cdr->car);
             void* right = eval_exp(text->cdr->cdr->car);
             return strcmp(left, right) == 0 ? "#t" : "#f";
+        } else if (strcmp("if", text->car) == 0) {
+            void* conditional = eval_exp(text->car);
+            if (strcmp("#t", text->cdr->car) == 0) {
+                return eval_exp(text->cdr->cdr->car);
+            } else {
+                return eval_exp(text->cdr->cdr->cdr->car);
+            }
         } else if (strcmp("+", text->car) == 0) {
             void* left = eval_exp(text->cdr->car);
             void* right = eval_exp(text->cdr->cdr->car);

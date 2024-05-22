@@ -5,6 +5,7 @@
 #include "liststruct.h"
 #include "reader.h"
 #include "writer.h"
+#include "eval.h"
 
 void test_lexer() {
     char* input = "(foo (bar) baz)";
@@ -18,7 +19,7 @@ void test_lexer() {
     assert(strcmp(token[5], "baz") == 0);
     assert(strcmp(token[6], ")") == 0);
 
-    printf("test_lexer passed\n");
+    printf("[0001] test_lexer passed\n");
 }
 
 void test_reader() {
@@ -32,7 +33,7 @@ void test_reader() {
     assert(istext(inner_list));
     assert(strcmp((char*)inner_list->car, "bar") == 0);
 
-    printf("test_reader passed\n");
+    printf("[0002] test_reader passed\n");
 }
 
 void test_writer() {
@@ -40,12 +41,22 @@ void test_writer() {
     void* result = read(input);
     print(result);
 
-    printf("test_writer passed\n");
+    printf("[0003] test_writer passed\n");
+}
+
+void test_addition() {
+    char input[] = "(+ 1 2)";
+    void* result = read(input);
+    eval(result);
+    assert(strcmp(ret, "3") == 0);
+
+    printf("[0004] test_addition passed\n");
 }
 
 int main() {
     test_lexer();
     test_reader();
     test_writer();
+    test_addition();
     return 0;
 }
