@@ -1,14 +1,21 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "liststruct.h"
+#include "environment.h"
 
 char ret[32];
 
 void* eval_exp(void* exp) {
     if (istext(exp)) {
         Text* text = exp;
-        if (strcmp("=", text->car) == 0) {
+        if (strcmp("define", text->car) == 0) {
+            void* var = text->cdr->car;
+            void* val = eval_exp(text->cdr->cdr->car);
+            put(var, val);
+            return "done";
+        } else if (strcmp("=", text->car) == 0) {
             void* left = eval_exp(text->cdr->car);
             void* right = eval_exp(text->cdr->cdr->car);
             return strcmp(left, right) == 0 ? "#t" : "#f";
@@ -46,7 +53,9 @@ void* eval_exp(void* exp) {
             return ret;
         }
     }
-    return exp;
+    return isdigit(*((char*)exp)) ||
+           strcmp(exp, "#t") == 0 ||
+           strcmp(exp, "#f") == 0 ? exp : get(exp);
 }
 
 void* eval(void* exp) {
