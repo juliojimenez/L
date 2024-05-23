@@ -7,10 +7,18 @@
 
 char ret[32];
 
+void* eval_exp(void* exp);
+
+void* evalargs(Text* args) {
+    return cons(eval_exp(args->car), args->cdr ? evalargs(args->cdr) : NULL);
+}
+
 void* eval_exp(void* exp) {
     if (istext(exp)) {
         Text* text = exp;
-        if (strcmp("cons", text->car) == 0) {
+        if (strcmp("list", text->car) == 0) {
+            return evalargs(text->cdr);
+        } else if (strcmp("cons", text->car) == 0) {
             void* left = eval_exp(text->cdr->car);
             void* right = eval_exp(text->cdr->cdr->car);
             return cons(left, right);
