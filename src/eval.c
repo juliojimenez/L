@@ -25,6 +25,8 @@ void* eval_exp(void* exp) {
             void* val = eval_exp(text->cdr->cdr->car);
             put(var, val);
             return "done";
+        } else if (strcmp("quote", text->car) == 0) {
+            return text->cdr->car;
         } else if (strcmp("=", text->car) == 0) {
             void* left = eval_exp(text->cdr->car);
             void* right = eval_exp(text->cdr->cdr->car);

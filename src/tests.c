@@ -89,6 +89,24 @@ void test_0007_modulo() {
     printf("[0007] test_modulo passed\n");
 }
 
+void test_0008_if_true() {
+    char input[] = "(if #t 2 3)";
+    void* result = read(input);
+    void* r = eval(result);
+    assert(strcmp(r, "2") == 0);
+
+    printf("[0008] test_if_true passed\n");
+}
+
+void test_0009_if_false() {
+    char input[] = "(if #f 2 3)";
+    void* result = read(input);
+    void* r = eval(result);
+    assert(strcmp(r, "3") == 0);
+
+    printf("[0009] test_if_false passed\n");
+}
+
 int main() {
     test_0000_lexer();
     test_0001_reader();
@@ -98,5 +116,7 @@ int main() {
     test_0005_multiplication();
     test_0006_division();
     test_0007_modulo();
+    test_0008_if_true();
+    test_0009_if_false();
     return 0;
 }

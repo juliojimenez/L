@@ -15,15 +15,15 @@ L aims to closely follow the Revised^7 Report on the Algorithmic Language Scheme
 ### macOS
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.13/llang-0.0.13-darwin-arm64
-mv llang-0.0.13-darwin-arm64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.14/llang-0.0.14-darwin-arm64
+mv llang-0.0.14-darwin-arm64 llang
 ```
 
 ### Linux
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.13/llang-0.0.13-linux-amd64
-mv llang-0.0.13-linux-amd64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.14/llang-0.0.14-linux-amd64
+mv llang-0.0.14-linux-amd64 llang
 ```
 
 ## Documentation
