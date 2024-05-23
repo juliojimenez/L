@@ -107,6 +107,24 @@ void test_0009_if_false() {
     printf("[0009] test_if_false passed\n");
 }
 
+void test_0010_equal_true() {
+    char input[] = "(= 1 1)";
+    void* result = read(input);
+    void* r = eval(result);
+    assert(strcmp(r, "#t") == 0);
+
+    printf("[0010] test_equal_true passed\n");
+}
+
+void test_0011_equal_false() {
+    char input[] = "(= 1 2)";
+    void* result = read(input);
+    void* r = eval(result);
+    assert(strcmp(r, "#f") == 0);
+
+    printf("[0011] test_equal_false passed\n");
+}
+
 int main() {
     test_0000_lexer();
     test_0001_reader();
@@ -118,5 +136,7 @@ int main() {
     test_0007_modulo();
     test_0008_if_true();
     test_0009_if_false();
+    test_0010_equal_true();
+    test_0011_equal_false();
     return 0;
 }

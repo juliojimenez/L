@@ -26,6 +26,7 @@ The L programing language is a simple Lisp-like language. It is a work in progre
     - [car](#car)
     - [cdr](#cdr)
     - [quote](#quote)
+    - [list](#list)
 
 ## Features
 
@@ -36,22 +37,22 @@ L aims to closely follow the Revised^7 Report on the Algorithmic Language Scheme
 ### macOS
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.14/llang-0.0.14-darwin-arm64
-mv llang-0.0.14-darwin-arm64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.15/llang-0.0.15-darwin-arm64
+mv llang-0.0.15-darwin-arm64 llang
 ```
 
 ### Linux
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.14/llang-0.0.14-linux-amd64
-mv llang-0.0.14-linux-amd64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.15/llang-0.0.15-linux-amd64
+mv llang-0.0.15-linux-amd64 llang
 ```
 
 ## REPL
 
 ```bash
 ./llang
-L v0.0.14
+L v0.0.15
 
 >
 ```
@@ -168,4 +169,11 @@ done
 (cons 12 10)
 > (quote (cons #t 3))
 (cons #t 3)
+```
+
+#### list
+
+```lisp
+> (list 1 2 3)
+(1 2 3)
 ```
