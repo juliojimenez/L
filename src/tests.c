@@ -1,11 +1,12 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+#include "eval.h"
 #include "lexer.h"
 #include "liststruct.h"
 #include "reader.h"
+#include "utils.h"
 #include "writer.h"
-#include "eval.h"
 
 void test_0000_lexer() {
     char* input = "(foo (bar) baz)";
@@ -125,6 +126,33 @@ void test_0011_equal_false() {
     printf("[0011] test_equal_false passed\n");
 }
 
+void test_0012_define() {
+    char input[] = "(define x 1)";
+    void* result = read(input);
+    void* r = eval(result);
+    assert(r == NULL);
+
+    printf("[0012] test_define passed\n");
+}
+
+void test_0013_quote() {
+    char input[] = "(quote 1)";
+    void* result = read(input);
+    void* r = eval(result);
+    assert(strcmp(r, "1") == 0);
+
+    printf("[0013] test_quote passed\n");
+}
+
+void test_0014_cons() {
+    char buffer[256];
+    void* result = eval(read("(cons 'a 'b)"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "(a . b)"));
+
+    printf("[0014] test_cons passed\n");
+}
+
 int main() {
     test_0000_lexer();
     test_0001_reader();
@@ -138,5 +166,8 @@ int main() {
     test_0009_if_false();
     test_0010_equal_true();
     test_0011_equal_false();
+    test_0012_define();
+    test_0013_quote();
+    test_0014_cons();
     return 0;
 }
