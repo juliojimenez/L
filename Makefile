@@ -38,12 +38,14 @@ llang-tests: \
 		src/eval.c \
 		src/eval.h \
 		src/environment.c \
-		src/environment.h
+		src/environment.h \
+		src/utils.c \
+		src/utils.h
 	clang \
 	   -fcolor-diagnostics \
 	   -fansi-escape-codes \
 	   -g \
-	   src/tests.c src/lexer.c src/token.c src/liststruct.c src/reader.c src/writer.c src/eval.c src/environment.c \
+	   src/tests.c src/lexer.c src/token.c src/liststruct.c src/reader.c src/writer.c src/eval.c src/environment.c src/utils.c \
        -o llang-tests
 
 llang-darwin-arm64: \
