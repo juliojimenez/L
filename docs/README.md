@@ -180,3 +180,5 @@ done
 > (list 1 2 3)
 (1 2 3)
 ```
+
+<small>The L mascot is a lemming named Lemmy.</small>
