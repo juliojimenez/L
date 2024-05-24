@@ -146,11 +146,38 @@ void test_0013_quote() {
 
 void test_0014_cons() {
     char buffer[256];
-    void* result = eval(read("(cons 'a 'b)"));
+    void* result = eval(read("(cons 1 2)"));
     get_exp_string(result, buffer, sizeof(buffer));
-    assert(streq(buffer, "(a . b)"));
+    assert(streq(buffer, "(1 . 2)"));
 
     printf("[0014] test_cons passed\n");
+}
+
+void test_0015_car() {
+    char buffer[256];
+    void* result = eval(read("(car (cons 1 2))"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "1"));
+
+    printf("[0015] test_car passed\n");
+}
+
+void test_0016_cdr() {
+    char buffer[256];
+    void* result = eval(read("(cdr (cons 1 2))"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "2"));
+
+    printf("[0016] test_cdr passed\n");
+}
+
+void test_0017_list() {
+    char buffer[256];
+    void* result = eval(read("(list 1 2)"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "(1 2)"));
+
+    printf("[0017] test_list passed\n");
 }
 
 int main() {
@@ -169,5 +196,8 @@ int main() {
     test_0012_define();
     test_0013_quote();
     test_0014_cons();
+    test_0015_car();
+    test_0016_cdr();
+    test_0017_list();
     return 0;
 }
