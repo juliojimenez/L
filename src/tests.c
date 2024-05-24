@@ -47,8 +47,8 @@ void test_0002_writer() {
 void test_0003_addition() {
     char input[] = "(+ 1 2)";
     void* result = read(input);
-    eval(result);
-    assert(strcmp(ret, "3") == 0);
+    void* r = eval(result);
+    assert(strcmp(r, "3") == 0);
 
     printf("[0003] test_addition passed\n");
 }
@@ -56,8 +56,8 @@ void test_0003_addition() {
 void test_0004_subtraction() {
     char input[] = "(- 2 1)";
     void* result = read(input);
-    eval(result);
-    assert(strcmp(ret, "1") == 0);
+    void* r = eval(result);
+    assert(strcmp(r, "1") == 0);
 
     printf("[0004] test_subtraction passed\n");
 }
@@ -65,8 +65,8 @@ void test_0004_subtraction() {
 void test_0005_multiplication() {
     char input[] = "(* 2 3)";
     void* result = read(input);
-    eval(result);
-    assert(strcmp(ret, "6") == 0);
+    void* r = eval(result);
+    assert(strcmp(r, "6") == 0);
 
     printf("[0005] test_multiplication passed\n");
 }
@@ -74,8 +74,8 @@ void test_0005_multiplication() {
 void test_0006_division() {
     char input[] = "(/ 6 2)";
     void* result = read(input);
-    eval(result);
-    assert(strcmp(ret, "3") == 0);
+    void* r = eval(result);
+    assert(strcmp(r, "3") == 0);
 
     printf("[0006] test_division passed\n");
 }
@@ -83,8 +83,8 @@ void test_0006_division() {
 void test_0007_modulo() {
     char input[] = "(% 7 3)";
     void* result = read(input);
-    eval(result);
-    assert(strcmp(ret, "1") == 0);
+    void* r = eval(result);
+    assert(strcmp(r, "1") == 0);
 
     printf("[0007] test_modulo passed\n");
 }

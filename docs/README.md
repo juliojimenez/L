@@ -20,8 +20,9 @@ The L programing language is a simple Lisp-like language. It is a work in progre
     - [Equal](#equal)
   - [Branching](#branching)
     - [if](#if)
-  - [Environments](#environments)
+  - [Variables](#variables)
     - [define](#define)
+  - [Lists](#lists)
     - [cons](#cons)
     - [car](#car)
     - [cdr](#cdr)
@@ -122,7 +123,7 @@ L v0.0.15
 5
 ```
 
-### Environments
+### Variables
 
 #### define
 
@@ -140,6 +141,8 @@ done
 > x
 3
 ```
+
+### Lists
 
 #### cons
 
@@ -177,3 +180,5 @@ done
 > (list 1 2 3)
 (1 2 3)
 ```
+
+<small>The L mascot is a lemming named Lemmy.</small>
