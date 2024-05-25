@@ -27,6 +27,13 @@ int lexer(char* input) {
                 ++ii;
                 ++ti;
                 break;
+            // turn an apostrophe into a token
+            case '\'':
+                token[ti][0] = '\'';
+                token[ti][1] = '\0';
+                ++ii;
+                ++ti;
+                break;
             // everything else is a symbol
             default:
                 for (int i = 0;; ++i) {
