@@ -51,7 +51,7 @@ char* symbolptr = symbol;
 Pair list[1280];
 Pair* listptr = list;
 
-int islist(void* x) {
+int islist(const void* x) {
     return x >= (void*)&list && x < (void*)&list[1280];
 }
 
@@ -70,15 +70,15 @@ void* cpysym(void* sym) {
     return sym;
 }
 
-void* cpy(Text* text) {
-    if (istext(text) || islist(text)) {
-        if (istext(text->car) || islist(text->car)) {
-            return cons(cpy((Text*)text->car), text->cdr ? cpy(text->cdr) : NULL);
+void* cpy(Text* txt) {
+    if (istext(txt) || islist(txt)) {
+        if (istext(txt->car) || islist(txt->car)) {
+            return cons(cpy((Text*)txt->car), text->cdr ? cpy(txt->cdr) : NULL);
         } else {
-            return cons(cpysym(text->car), text->cdr ? cpy(text->cdr) : NULL);
+            return cons(cpysym(txt->car), text->cdr ? cpy(txt->cdr) : NULL);
         }
     }
-    return cpysym(text);
+    return cpysym(txt);
 }
 
 void* cpylambda(Pair* val) {

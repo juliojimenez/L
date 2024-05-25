@@ -21,26 +21,26 @@ void* lambda(Text* args, Text* body, void* env) {
 
 void* eval_exp(void* exp, Env* env) {
     if (istext(exp) || islist(exp)) {
-        Text* text = exp;
-        if (strcmp("define", text->car) == 0) {
-            void* var = text->cdr->car;
-            void* val = eval_exp(text->cdr->cdr->car, env);
+        Text* txt = exp;
+        if (strcmp("define", txt->car) == 0) {
+            void* var = txt->cdr->car;
+            void* val = eval_exp(txt->cdr->cdr->car, env);
             put(var, val, env);
             return NULL;
-        } else if (strcmp("quote", text->car) == 0) {
-            return text->cdr->car;
-        } else if (strcmp("if", text->car) == 0) {
-            void* conditional = eval_exp(text->cdr->car, env);
+        } else if (strcmp("quote", txt->car) == 0) {
+            return txt->cdr->car;
+        } else if (strcmp("if", txt->car) == 0) {
+            void* conditional = eval_exp(txt->cdr->car, env);
             if (strcmp(conditional, "#t") == 0) {
-                return eval_exp(text->cdr->cdr->car, env);
+                return eval_exp(txt->cdr->cdr->car, env);
             } else {
-                return eval_exp(text->cdr->cdr->cdr->car, env);
+                return eval_exp(txt->cdr->cdr->cdr->car, env);
             }
-        } else if (strcmp("lambda", text->car) == 0) {
-            return lambda((Text*)text->cdr->car, text->cdr->cdr, env);
+        } else if (strcmp("lambda", txt->car) == 0) {
+            return lambda((Text*)txt->cdr->car, txt->cdr->cdr, env);
         } else {
-            void* fun = eval_exp(text->car, env);
-            return apply(fun, text->cdr, env);
+            void* fun = eval_exp(txt->car, env);
+            return apply(fun, txt->cdr, env);
         }
     }
     return isdigit(*((char*)exp)) ||

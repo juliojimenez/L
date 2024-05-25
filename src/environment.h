@@ -23,7 +23,7 @@ extern char symbol[2048];
 
 extern Pair list[1280];
 
-int islist(void* x);
+int islist(const void* x);
 Pair* cons(void* x, void* y);
 
 void* cpysym(void* sym);

@@ -27,9 +27,9 @@ void test_0001_reader() {
     char input[] = "(foo (bar) baz)";
     void* result = read(input);
 
-    Pair* list = (Pair*)result;
-    assert(strcmp((char*)list->car, "foo") == 0);
-    Pair* rest = (Pair*)list->cdr;
+    Pair* lst = (Pair*)result;
+    assert(strcmp((char*)lst->car, "foo") == 0);
+    Pair* rest = (Pair*)lst->cdr;
     Pair* inner_list = (Pair*)rest->car;
     assert(istext(inner_list));
     assert(strcmp((char*)inner_list->car, "bar") == 0);

@@ -10,18 +10,18 @@ void print_cons(Pair* pair) {
     print_exp(pair->cdr);
 }
 
-void print_list(Pair* list) {
-    if (list->cdr == NULL) {
-        print_exp(list->car);
+void print_list(Pair* lst) {
+    if (lst->cdr == NULL) {
+        print_exp(lst->car);
         printf(")");
     } else {
-        if (!islist(list->cdr) && !istext(list->cdr) && list->cdr != NULL) {
-            print_cons(list);
+        if (!islist(lst->cdr) && !istext(lst->cdr) && lst->cdr != NULL) {
+            print_cons(lst);
             printf(")");
         } else {
-            print_exp(list->car);
+            print_exp(lst->car);
             printf(" ");
-            print_list(list->cdr);
+            print_list(lst->cdr);
         }
     }
 }
