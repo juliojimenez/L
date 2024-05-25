@@ -38,9 +38,11 @@ void test_0001_reader() {
 }
 
 void test_0002_writer() {
+    char buffer[256];
     char input[] = "(foo (bar) baz)";
     void* result = read(input);
-    print(result);
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "(foo (bar) baz)"));
 
     printf("[0002] test_writer passed\n");
 }
