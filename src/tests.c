@@ -27,9 +27,9 @@ void test_0001_reader() {
     char input[] = "(foo (bar) baz)";
     void* result = read(input);
 
-    Pair* list = (Pair*)result;
-    assert(strcmp((char*)list->car, "foo") == 0);
-    Pair* rest = (Pair*)list->cdr;
+    Pair* lst = (Pair*)result;
+    assert(strcmp((char*)lst->car, "foo") == 0);
+    Pair* rest = (Pair*)lst->cdr;
     Pair* inner_list = (Pair*)rest->car;
     assert(istext(inner_list));
     assert(strcmp((char*)inner_list->car, "bar") == 0);
@@ -38,9 +38,11 @@ void test_0001_reader() {
 }
 
 void test_0002_writer() {
+    char buffer[256];
     char input[] = "(foo (bar) baz)";
     void* result = read(input);
-    print(result);
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "(foo (bar) baz)"));
 
     printf("[0002] test_writer passed\n");
 }
@@ -180,6 +182,15 @@ void test_0017_list() {
     printf("[0017] test_list passed\n");
 }
 
+void test_0018_lambda() {
+    char buffer[256];
+    void* result = eval(read("((lambda (x) x) 1)"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "1"));
+
+    printf("[0018] test_lambda passed\n");
+}
+
 int main() {
     test_0000_lexer();
     test_0001_reader();
@@ -199,5 +210,6 @@ int main() {
     test_0015_car();
     test_0016_cdr();
     test_0017_list();
+    test_0018_lambda();
     return 0;
 }

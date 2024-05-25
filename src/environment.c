@@ -31,10 +31,18 @@ Env global = {
 Env frame[128];
 Env* frameptr = frame;
 
+int isenv(void* x);
+
 Env* extend(Env* env) {
     frameptr->next = env;
     frameptr->entryptr = frameptr->entry;
     return frameptr++;
+}
+
+void retract() {
+  assert(isenv(frameptr));
+  frameptr--;
+  memset(frameptr->entry, 0, sizeof(Entry[32]));
 }
 
 char symbol[2048];
@@ -43,7 +51,7 @@ char* symbolptr = symbol;
 Pair list[1280];
 Pair* listptr = list;
 
-int islist(void* x) {
+int islist(const void* x) {
     return x >= (void*)&list && x < (void*)&list[1280];
 }
 
@@ -62,15 +70,15 @@ void* cpysym(void* sym) {
     return sym;
 }
 
-void* cpy(Text* text) {
-    if (istext(text) || islist(text)) {
-        if (istext(text->car) || islist(text->car)) {
-            return cons(cpy((Text*)text->car), text->cdr ? cpy(text->cdr) : NULL);
+void* cpy(Text* txt) {
+    if (istext(txt) || islist(txt)) {
+        if (istext(txt->car) || islist(txt->car)) {
+            return cons(cpy((Text*)txt->car), text->cdr ? cpy(txt->cdr) : NULL);
         } else {
-            return cons(cpysym(text->car), text->cdr ? cpy(text->cdr) : NULL);
+            return cons(cpysym(txt->car), text->cdr ? cpy(txt->cdr) : NULL);
         }
     }
-    return cpysym(text);
+    return cpysym(txt);
 }
 
 void* cpylambda(Pair* val) {
@@ -78,10 +86,6 @@ void* cpylambda(Pair* val) {
     lambda->car = lambda->car ? cpy(lambda->car) : NULL;
     lambda->cdr = cpy(lambda->cdr);
     return val;
-}
-
-void* lambda(Text* args, Text* body, void* env) {
-    return cons(env, cons(args, body));
 }
 
 int isenv(void* x) {
