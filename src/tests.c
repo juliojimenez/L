@@ -180,6 +180,15 @@ void test_0017_list() {
     printf("[0017] test_list passed\n");
 }
 
+void test_0018_lambda() {
+    char buffer[256];
+    void* result = eval(read("((lambda (x) x) 1)"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "1"));
+
+    printf("[0018] test_lambda passed\n");
+}
+
 int main() {
     test_0000_lexer();
     test_0001_reader();
@@ -199,5 +208,6 @@ int main() {
     test_0015_car();
     test_0016_cdr();
     test_0017_list();
+    test_0018_lambda();
     return 0;
 }

@@ -28,6 +28,8 @@ The L programing language is a simple Lisp-like language. It is a work in progre
     - [cdr](#cdr)
     - [quote](#quote)
     - [list](#list)
+  - [Procedures](#procedures)
+    - [lambda](#lambda)
 
 ## Features
 
@@ -38,22 +40,22 @@ L aims to closely follow the Revised^7 Report on the Algorithmic Language Scheme
 ### macOS
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.15/llang-0.0.15-darwin-arm64
-mv llang-0.0.15-darwin-arm64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.16/llang-0.0.16-darwin-arm64
+mv llang-0.0.16-darwin-arm64 llang
 ```
 
 ### Linux
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.15/llang-0.0.15-linux-amd64
-mv llang-0.0.15-linux-amd64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.16/llang-0.0.16-linux-amd64
+mv llang-0.0.16-linux-amd64 llang
 ```
 
 ## REPL
 
 ```bash
 ./llang
-L v0.0.15
+L v0.0.16
 
 >
 ```
@@ -181,4 +183,17 @@ done
 (1 2 3)
 ```
 
-<small>The L mascot is a lemming named Lemmy.</small>
+### Procedures
+
+#### lambda
+
+```lisp
+> (lambda () (+ 1 2))
+<#lambda>
+> ((lambda () (+ 1 2)))
+3
+> ((lambda (a b) (+ a b)) 2 2)
+4
+```
+
+The L mascot is a lemming named Lemmy.

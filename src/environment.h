@@ -16,6 +16,8 @@ typedef struct Env {
 
 extern Env global;
 
+Env* extend(Env* env);
+
 extern Entry entry[32];
 extern char symbol[2048];
 
@@ -25,6 +27,7 @@ int islist(void* x);
 Pair* cons(void* x, void* y);
 
 void* cpysym(void* sym);
+int isenv(void* x);
 void put(void* sym, void* val, Env* env);
 void* get(void* sym, Env* env);
 

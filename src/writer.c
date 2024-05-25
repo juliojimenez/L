@@ -29,7 +29,10 @@ void print_list(Pair* list) {
 void print_exp(void* exp) {
     if (istext(exp) || islist(exp)) {
         Pair* pair = exp;
-        if (!istext(pair->cdr) && !islist(pair->cdr) && pair->cdr != NULL) {
+        if (isenv(pair->car)) {
+            printf("#<lambda>");
+            return;
+        } else if (!istext(pair->cdr) && !islist(pair->cdr) && pair->cdr != NULL) {
             printf("(");
             print_cons(exp);
             printf(")");
