@@ -1,7 +1,7 @@
 #ifndef LISTSTRUCT_H
 #define LISTSTRUCT_H
 
-typedef struct {
+typedef struct Pair {
     void* car;
     void* cdr;
 } Pair;
