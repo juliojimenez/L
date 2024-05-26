@@ -202,8 +202,8 @@ void test_0019_apostrophe() {
 
 void test_0020_define_set() {
     char buffer[256];
-    void* define = eval(read("(define x 1)"));
-    void* set = eval(read("(set! x 2)"));
+    eval(read("(define x 1)"));
+    eval(read("(set! x 2)"));
     void* result = eval(read("x"));
     get_exp_string(result, buffer, sizeof(buffer));
     assert(streq(buffer, "2"));
