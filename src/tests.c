@@ -191,6 +191,26 @@ void test_0018_lambda() {
     printf("[0018] test_lambda passed\n");
 }
 
+void test_0019_apostrophe() {
+    char buffer[256];
+    void* result = eval(read("'(1 2)"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "(1 2)"));
+
+    printf("[0019] test_apostrophe passed\n");
+}
+
+void test_0020_define_set() {
+    char buffer[256];
+    void* define = eval(read("(define x 1)"));
+    void* set = eval(read("(set! x 2)"));
+    void* result = eval(read("x"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "2"));
+
+    printf("[0020] test_define_set passed\n");
+}
+
 int main() {
     test_0000_lexer();
     test_0001_reader();
@@ -211,5 +231,7 @@ int main() {
     test_0016_cdr();
     test_0017_list();
     test_0018_lambda();
+    test_0019_apostrophe();
+    test_0020_define_set();
     return 0;
 }
