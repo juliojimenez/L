@@ -12,7 +12,7 @@ void* read_list() {
         return NULL;
     } else if (tok[0] == '.') {
         nexttok();
-        tok = nexttok();
+        tok = read_exp();
         nexttok();
         return tok;
     } else {
