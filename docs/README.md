@@ -178,6 +178,13 @@ done
 (cons #t 3)
 ```
 
+The apostrophe or single-quote `'` is a shorthand for `quote`.
+
+```lisp
+> '(cons 12 10)
+(cons 12 10)
+```
+
 #### list
 
 ```lisp
