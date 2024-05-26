@@ -31,7 +31,6 @@ void print_exp(void* exp) {
         Pair* pair = exp;
         if (isenv(pair->car)) {
             printf("#<lambda>");
-            return;
         } else if (!istext(pair->cdr) && !islist(pair->cdr) && pair->cdr != NULL) {
             printf("(");
             print_cons(exp);
