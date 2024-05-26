@@ -6,8 +6,6 @@
 #include "liststruct.h"
 #include "environment.h"
 
-char ret[32];
-
 void* eval_exp(void* exp, Env* env);
 void* apply(void* func, Text* args, Env* env);
 
@@ -22,6 +20,12 @@ void* eval_exp(void* exp, Env* env) {
             void* var = txt->cdr->car;
             void* val = eval_exp(txt->cdr->cdr->car, env);
             put(var, val, env);
+            return NULL;
+        }
+        if (strcmp("set!", txt->car) == 0) {
+            void* var = txt->cdr->car;
+            void* val = eval_exp(txt->cdr->cdr->car, env);
+            set(var, val, env);
             return NULL;
         } else if (strcmp("quote", txt->car) == 0) {
             return txt->cdr->car;

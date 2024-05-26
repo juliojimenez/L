@@ -32,5 +32,6 @@ extern Entry entry[32];
 int isenv(void* x);
 void put(void* sym, void* val, Env* env);
 void* get(void* sym, Env* env);
+void set(void* sym, void* val, Env* env);
 
 #endif
