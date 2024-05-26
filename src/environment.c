@@ -2,6 +2,53 @@
 #include <string.h>
 #include "liststruct.h"
 
+char symbol[2048];
+char* symbolptr = symbol;
+
+Pair list[1280];
+Pair* listptr = list;
+
+int islist(const void* x) {
+    return x >= (void*)&list && x < (void*)&list[1280];
+}
+
+Pair* cons(void* x, void* y) {
+    assert(islist(listptr));
+    listptr->car = x;
+    listptr->cdr = y;
+    return listptr++;
+}
+
+void* cpysym(void* sym) {
+    if (sym) {
+        sym = strcpy(symbolptr, sym);
+        symbolptr = symbolptr + strlen(sym) + 1;
+    }
+    return sym;
+}
+
+void* cpy(Text* txt) {
+    if (istext(txt) || islist(txt)) {
+        if (istext(txt->car) || islist(txt->car)) {
+            return cons(cpy((Text*)txt->car), text->cdr ? cpy(txt->cdr) : NULL);
+        } else {
+            return cons(cpysym(txt->car), text->cdr ? cpy(txt->cdr) : NULL);
+        }
+    }
+    return cpysym(txt);
+}
+
+void* cpylambda(Pair* val) {
+    Pair* lambda = val->cdr;
+    lambda->car = lambda->car ? cpy(lambda->car) : NULL;
+    lambda->cdr = cpy(lambda->cdr);
+    return val;
+}
+
+void* lambda(Text* args, Text* body, void* env) {
+    return cons(env, cons(args, body));
+}
+
 typedef struct {
     char sym[32];
     void* val;
@@ -45,48 +92,17 @@ void retract() {
   memset(frameptr->entry, 0, sizeof(Entry[32]));
 }
 
-char symbol[2048];
-char* symbolptr = symbol;
 
-Pair list[1280];
-Pair* listptr = list;
 
-int islist(const void* x) {
-    return x >= (void*)&list && x < (void*)&list[1280];
-}
 
-Pair* cons(void* x, void* y) {
-    assert(islist(listptr));
-    listptr->car = x;
-    listptr->cdr = y;
-    return listptr++;
-}
 
-void* cpysym(void* sym) {
-    if (sym) {
-        sym = strcpy(symbolptr, sym);
-        symbolptr = symbolptr + strlen(sym) + 1;
-    }
-    return sym;
-}
 
-void* cpy(Text* txt) {
-    if (istext(txt) || islist(txt)) {
-        if (istext(txt->car) || islist(txt->car)) {
-            return cons(cpy((Text*)txt->car), text->cdr ? cpy(txt->cdr) : NULL);
-        } else {
-            return cons(cpysym(txt->car), text->cdr ? cpy(txt->cdr) : NULL);
-        }
-    }
-    return cpysym(txt);
-}
 
-void* cpylambda(Pair* val) {
-    Pair* lambda = val->cdr;
-    lambda->car = lambda->car ? cpy(lambda->car) : NULL;
-    lambda->cdr = cpy(lambda->cdr);
-    return val;
-}
+
+
+
+
+
 
 int isenv(void* x) {
     return x >= (void*)&frame && x < (void*)&frame[128] || x == (void*)&global;

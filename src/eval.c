@@ -15,10 +15,6 @@ void* evalargs(Text* args, Env* env) {
     return cons(eval_exp(args->car, env), args->cdr ? evalargs(args->cdr, env) : NULL);
 }
 
-void* lambda(Text* args, Text* body, void* env) {
-    return cons(env, cons(args, body));
-}
-
 void* eval_exp(void* exp, Env* env) {
     if (istext(exp) || islist(exp)) {
         Text* txt = exp;
