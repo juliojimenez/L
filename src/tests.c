@@ -256,6 +256,17 @@ void test_0025_modulo_float() {
     printf("[0025] test_modulo_float passed\n");
 }
 
+void test_0026_define_get() {
+    char buffer[256];
+    eval(read("(define x 1)"));
+    eval(read("(get x)"));
+    void* result = eval(read("x"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "1"));
+
+    printf("[0026] test_define_get passed\n");
+}
+
 int main() {
     test_0000_lexer();
     test_0001_reader();
@@ -283,5 +294,6 @@ int main() {
     test_0023_multiplication_float();
     test_0024_division_float();
     test_0025_modulo_float();
+    test_0026_define_get();
     return 0;
 }

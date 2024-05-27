@@ -78,7 +78,7 @@ Env global = {
 Env frame[128];
 Env* frameptr = frame;
 
-int isenv(void* x);
+int isenv(const void* x);
 
 Env* extend(Env* env) {
     assert(isenv(frameptr));
@@ -93,7 +93,7 @@ void retract() {
   memset(frameptr->entry, 0, sizeof(Entry[32]));
 }
 
-int isenv(void* x) {
+int isenv(const void* x) {
     return x >= (void*)&frame && x < (void*)&frame[128] || x == (void*)&global;
 }
 
@@ -107,7 +107,7 @@ void put(void* sym, void* val, Env* env) {
         return;
     }
     if (istext(val) || islist(val)) {
-        Pair* pair = val;
+        const Pair* pair = val;
         if (isenv(pair->car)) {
             env->entryptr->val = cpylambda(val);
         } else {
@@ -138,7 +138,7 @@ void set(void* sym, void* val, Env* env) {
             if (val < (void*)100) {
                 seek->val = val;
             } else if (istext(val) || islist(val)) {
-                Pair* pair = val;
+                const Pair* pair = val;
                 if (isenv(pair->car)) {
                     seek->val = cpylambda(val);
                 } else {

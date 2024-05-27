@@ -25,6 +25,7 @@ The L programing language is a simple Lisp-like language. It is a work in progre
   - [Variables](#variables)
     - [define](#define)
     - [set!](#set)
+    - [get](#get)
   - [Lists](#lists)
     - [cons](#cons)
     - [car](#car)
@@ -43,22 +44,22 @@ L aims to closely follow the Revised^7 Report on the Algorithmic Language Scheme
 ### macOS
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.17/llang-0.0.17-darwin-arm64
-mv llang-0.0.17-darwin-arm64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.18/llang-0.0.18-darwin-arm64
+mv llang-0.0.18-darwin-arm64 llang
 ```
 
 ### Linux
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.17/llang-0.0.17-linux-amd64
-mv llang-0.0.17-linux-amd64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.18/llang-0.0.18-linux-amd64
+mv llang-0.0.18-linux-amd64 llang
 ```
 
 ## REPL
 
 ```bash
 ./llang
-L v0.0.17
+L v0.0.18
 
 >
 ```
@@ -158,6 +159,15 @@ done
 ()
 > x
 20
+```
+
+#### get
+
+```lisp
+> (define x 10)
+()
+> (get x)
+10
 ```
 
 ### Lists
