@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <ctype.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,6 +12,18 @@ void* apply(void* func, Text* args, Env* env);
 
 void* evalargs(Text* args, Env* env) {
     return cons(eval_exp(args->car, env), args->cdr ? evalargs(args->cdr, env) : NULL);
+}
+
+bool is_integer(const char* str) {
+    char* endptr;
+    strtol(str, &endptr, 10);
+    return endptr != str && *endptr == '\0';
+}
+
+bool is_float(const char* str) {
+    char* endptr;
+    strtod(str, &endptr);
+    return endptr != str && *endptr == '\0' && strchr(str, '.') != NULL;
 }
 
 void* eval_exp(void* exp, Env* env) {
@@ -43,7 +56,8 @@ void* eval_exp(void* exp, Env* env) {
             return apply(fun, txt->cdr, env);
         }
     }
-    return isdigit(*((char*)exp)) ||
+    return is_integer((char*)exp) ||
+           is_float((char*)exp) ||
            strcmp(exp, "#t") == 0 ||
            strcmp(exp, "#f") == 0 ? exp : get(exp, env);
 }
@@ -84,24 +98,56 @@ void* apply(void* func, Text* args, Env* env) {
     } else {
         char evret[32];
         if (func == (void*)1) {
-            int left = atoi(eval_exp(args->car, env));
-            int right = atoi(eval_exp(args->cdr->car, env));
-            snprintf(evret, sizeof(int), "%d", left + right);
+            void* left_val = eval_exp(args->car, env);
+            void* right_val = eval_exp(args->cdr->car, env);
+            if (is_integer(left_val) && is_integer(right_val)) {
+                int left = atoi(left_val);
+                int right = atoi(right_val);
+                snprintf(evret, sizeof(int), "%d", left + right);
+            } else {
+                double left = atof(left_val);
+                double right = atof(right_val);
+                snprintf(evret, sizeof(double), "%f", left + right);
+            }
             return cpysym(evret);
         } else if (func == (void*)2) {
-            int left = atoi(eval_exp(args->car, env));
-            int right = atoi(eval_exp(args->cdr->car, env));
-            snprintf(evret, sizeof(int), "%d", left - right);
+            void* left_val = eval_exp(args->car, env);
+            void* right_val = eval_exp(args->cdr->car, env);
+            if (is_integer(left_val) && is_integer(right_val)) {
+                int left = atoi(left_val);
+                int right = atoi(right_val);
+                snprintf(evret, sizeof(int), "%d", left - right);
+            } else {
+                double left = atof(left_val);
+                double right = atof(right_val);
+                snprintf(evret, sizeof(double), "%f", left - right);
+            }
             return cpysym(evret);
         } else if (func == (void*)3) {
-            int left = atoi(eval_exp(args->car, env));
-            int right = atoi(eval_exp(args->cdr->car, env));
-            snprintf(evret, sizeof(int), "%d", left * right);
+            void* left_val = eval_exp(args->car, env);
+            void* right_val = eval_exp(args->cdr->car, env);
+            if (is_integer(left_val) && is_integer(right_val)) {
+                int left = atoi(left_val);
+                int right = atoi(right_val);
+                snprintf(evret, sizeof(int), "%d", left * right);
+            } else {
+                double left = atof(left_val);
+                double right = atof(right_val);
+                snprintf(evret, sizeof(double), "%f", left * right);
+            }
             return cpysym(evret);
         } else if (func == (void*)4) {
-            int left = atoi(eval_exp(args->car, env));
-            int right = atoi(eval_exp(args->cdr->car, env));
-            snprintf(evret, sizeof(int), "%d", left / right);
+            void* left_val = eval_exp(args->car, env);
+            void* right_val = eval_exp(args->cdr->car, env);
+            if (is_integer(left_val) && is_integer(right_val)) {
+                int left = atoi(left_val);
+                int right = atoi(right_val);
+                snprintf(evret, sizeof(int), "%d", left / right);
+            } else {
+                double left = atof(left_val);
+                double right = atof(right_val);
+                snprintf(evret, sizeof(double), "%f", left / right);
+            }
             return cpysym(evret);
         } else if (func == (void*)5) {
             Pair* pair = eval_exp(args->car, env);

@@ -39,6 +39,7 @@ void print_exp(void* exp) {
             printf("(");
             print_list(exp);
         }
+    // TODO: is_integer and is_float are not implemented
     } else {
         printf("%s", exp ? (char*)exp : "()");
     }

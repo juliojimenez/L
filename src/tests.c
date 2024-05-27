@@ -211,6 +211,51 @@ void test_0020_define_set() {
     printf("[0020] test_define_set passed\n");
 }
 
+void test_0021_addition_float() {
+    char buffer[256];
+    void* result = eval(read("(+ 1.1 2.2)"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "3.3") == 0);
+
+    printf("[0021] test_addition_float passed\n");
+}
+
+void test_0022_subtraction_float() {
+    char buffer[256];
+    void* result = eval(read("(- 1.1 2.2)"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "-1.10000") == 0);
+
+    printf("[0022] test_subtraction_float passed\n");
+}
+
+void test_0023_multiplication_float() {
+    char buffer[256];
+    void* result = eval(read("(* 1.1 2)"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "2.2") == 0);
+
+    printf("[0023] test_multiplication_float passed\n");
+}
+
+void test_0024_division_float() {
+    char buffer[256];
+    void* result = eval(read("(/ 2.2 2)"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "1.1") == 0);
+
+    printf("[0024] test_division_float passed\n");
+}
+
+void test_0025_modulo_float() {
+    char buffer[256];
+    void* result = eval(read("(% 2.2 2)"));
+    get_exp_string(result, buffer, sizeof(buffer));
+    assert(streq(buffer, "") == 0);
+
+    printf("[0025] test_modulo_float passed\n");
+}
+
 int main() {
     test_0000_lexer();
     test_0001_reader();
@@ -233,5 +278,10 @@ int main() {
     test_0018_lambda();
     test_0019_apostrophe();
     test_0020_define_set();
+    test_0021_addition_float();
+    test_0022_subtraction_float();
+    test_0023_multiplication_float();
+    test_0024_division_float();
+    test_0025_modulo_float();
     return 0;
 }
