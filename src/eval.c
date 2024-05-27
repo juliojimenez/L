@@ -40,6 +40,10 @@ void* eval_exp(void* exp, Env* env) {
             void* val = eval_exp(txt->cdr->cdr->car, env);
             set(var, val, env);
             return NULL;
+        }
+        if (strcmp("get", txt->car) == 0) {
+            void* var = txt->cdr->car;
+            return get(var, env);
         } else if (strcmp("quote", txt->car) == 0) {
             return txt->cdr->car;
         } else if (strcmp("if", txt->car) == 0) {

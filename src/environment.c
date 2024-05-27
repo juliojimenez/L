@@ -78,7 +78,7 @@ Env global = {
 Env frame[128];
 Env* frameptr = frame;
 
-int isenv(void* x);
+int isenv(const void* x);
 
 Env* extend(Env* env) {
     assert(isenv(frameptr));
@@ -93,7 +93,7 @@ void retract() {
   memset(frameptr->entry, 0, sizeof(Entry[32]));
 }
 
-int isenv(void* x) {
+int isenv(const void* x) {
     return x >= (void*)&frame && x < (void*)&frame[128] || x == (void*)&global;
 }
 
