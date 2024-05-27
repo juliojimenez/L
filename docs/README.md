@@ -25,6 +25,7 @@ The L programing language is a simple Lisp-like language. It is a work in progre
   - [Variables](#variables)
     - [define](#define)
     - [set!](#set)
+    - [get](#get)
   - [Lists](#lists)
     - [cons](#cons)
     - [car](#car)
@@ -158,6 +159,15 @@ done
 ()
 > x
 20
+```
+
+#### get
+
+```lisp
+> (define x 10)
+()
+> (get x)
+10
 ```
 
 ### Lists
