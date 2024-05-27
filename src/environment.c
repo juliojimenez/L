@@ -107,7 +107,7 @@ void put(void* sym, void* val, Env* env) {
         return;
     }
     if (istext(val) || islist(val)) {
-        Pair* pair = val;
+        const Pair* pair = val;
         if (isenv(pair->car)) {
             env->entryptr->val = cpylambda(val);
         } else {
@@ -138,7 +138,7 @@ void set(void* sym, void* val, Env* env) {
             if (val < (void*)100) {
                 seek->val = val;
             } else if (istext(val) || islist(val)) {
-                Pair* pair = val;
+                const Pair* pair = val;
                 if (isenv(pair->car)) {
                     seek->val = cpylambda(val);
                 } else {
