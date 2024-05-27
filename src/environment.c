@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <stdbool.h>
 #include <string.h>
 #include "liststruct.h"
 
@@ -52,6 +53,7 @@ void* lambda(Text* args, Text* body, void* env) {
 typedef struct {
     char sym[32];
     void* val;
+    bool is_reference;
 } Entry;
 
 typedef struct Env {
