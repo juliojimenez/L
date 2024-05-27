@@ -2,49 +2,6 @@
 #include <string.h>
 #include "liststruct.h"
 
-typedef struct {
-    char sym[32];
-    void* val;
-} Entry;
-
-typedef struct Env {
-    Entry entry[32];
-    Entry* entryptr;
-    struct Env* next;
-} Env;
-
-Env global = {
-    {{ .sym = "+", .val = (void*)1 },
-     { .sym = "-", .val = (void*)2 },
-     { .sym = "*", .val = (void*)3 },
-     { .sym = "/", .val = (void*)4 },
-     { .sym = "car", .val = (void*)5 },
-     { .sym = "cdr", .val = (void*)6 },
-     { .sym = "=", .val = (void*)7 },
-     { .sym = "cons", .val = (void*)8 },
-     { .sym = "list", .val = (void*)9 },
-     { .sym = "%", .val = (void*)10}},
-    .entryptr = global.entry + 10,
-    NULL
-};
-
-Env frame[128];
-Env* frameptr = frame;
-
-int isenv(void* x);
-
-Env* extend(Env* env) {
-    frameptr->next = env;
-    frameptr->entryptr = frameptr->entry;
-    return frameptr++;
-}
-
-void retract() {
-  assert(isenv(frameptr));
-  frameptr--;
-  memset(frameptr->entry, 0, sizeof(Entry[32]));
-}
-
 char symbol[2048];
 char* symbolptr = symbol;
 
@@ -88,6 +45,54 @@ void* cpylambda(Pair* val) {
     return val;
 }
 
+void* lambda(Text* args, Text* body, void* env) {
+    return cons(env, cons(args, body));
+}
+
+typedef struct {
+    char sym[32];
+    void* val;
+} Entry;
+
+typedef struct Env {
+    Entry entry[32];
+    Entry* entryptr;
+    struct Env* next;
+} Env;
+
+Env global = {
+    {{ .sym = "+", .val = (void*)1 },
+     { .sym = "-", .val = (void*)2 },
+     { .sym = "*", .val = (void*)3 },
+     { .sym = "/", .val = (void*)4 },
+     { .sym = "car", .val = (void*)5 },
+     { .sym = "cdr", .val = (void*)6 },
+     { .sym = "=", .val = (void*)7 },
+     { .sym = "cons", .val = (void*)8 },
+     { .sym = "list", .val = (void*)9 },
+     { .sym = "%", .val = (void*)10}},
+    .entryptr = global.entry + 10,
+    NULL
+};
+
+Env frame[128];
+Env* frameptr = frame;
+
+int isenv(void* x);
+
+Env* extend(Env* env) {
+    assert(isenv(frameptr));
+    frameptr->next = env;
+    frameptr->entryptr = frameptr->entry;
+    return frameptr++;
+}
+
+void retract() {
+  assert(isenv(frameptr));
+  frameptr--;
+  memset(frameptr->entry, 0, sizeof(Entry[32]));
+}
+
 int isenv(void* x) {
     return x >= (void*)&frame && x < (void*)&frame[128] || x == (void*)&global;
 }
@@ -123,4 +128,27 @@ void* get(void* sym, Env* env) {
         }
     }
     return get(sym, env->next);
+}
+
+void set(void* sym, void* val, Env* env) {
+    assert(env);
+    Entry* seek = env->entryptr;
+    for (; seek != env->entry - 1; --seek) {
+        if (strcmp(seek->sym, sym) == 0) {
+            if (val < (void*)100) {
+                seek->val = val;
+            } else if (istext(val) || islist(val)) {
+                Pair* pair = val;
+                if (isenv(pair->car)) {
+                    seek->val = cpylambda(val);
+                } else {
+                    seek->val = cpy(val);
+                }
+            } else {
+                seek->val = cpysym(val);
+            }
+            return;
+        }
+    }
+    return set(sym, val, env->next);
 }

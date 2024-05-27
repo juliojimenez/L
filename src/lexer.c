@@ -1,3 +1,10 @@
+#include <ctype.h>
+#include <stdbool.h>
+
+bool isdigit_or_dot(char c) {
+  return isdigit(c) || c == '.';
+}
+
 // 128 tokens, each 32 characters long
 char token[128][32];
 
@@ -27,6 +34,13 @@ int lexer(char* input) {
                 ++ii;
                 ++ti;
                 break;
+            // turn an apostrophe into a token
+            case '\'':
+                token[ti][0] = '\'';
+                token[ti][1] = '\0';
+                ++ii;
+                ++ti;
+                break;
             // everything else is a symbol
             default:
                 for (int i = 0;; ++i) {
@@ -35,6 +49,8 @@ int lexer(char* input) {
                         input[ii] != ')' &&
                         input[ii] != '\n' &&
                         input[ii] != '\0') {
+                        token[ti][i] = input[ii++];
+                    } else if (isdigit_or_dot(input[ii]) || isalpha(input[ii])) {
                         token[ti][i] = input[ii++];
                     } else {
                         token[ti][i] = '\0';

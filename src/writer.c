@@ -31,7 +31,6 @@ void print_exp(void* exp) {
         Pair* pair = exp;
         if (isenv(pair->car)) {
             printf("#<lambda>");
-            return;
         } else if (!istext(pair->cdr) && !islist(pair->cdr) && pair->cdr != NULL) {
             printf("(");
             print_cons(exp);
@@ -40,6 +39,7 @@ void print_exp(void* exp) {
             printf("(");
             print_list(exp);
         }
+    // TODO: is_integer and is_float are not implemented
     } else {
         printf("%s", exp ? (char*)exp : "()");
     }

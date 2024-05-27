@@ -24,6 +24,7 @@ The L programing language is a simple Lisp-like language. It is a work in progre
     - [if](#if)
   - [Variables](#variables)
     - [define](#define)
+    - [set!](#set)
   - [Lists](#lists)
     - [cons](#cons)
     - [car](#car)
@@ -42,22 +43,22 @@ L aims to closely follow the Revised^7 Report on the Algorithmic Language Scheme
 ### macOS
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.16/llang-0.0.16-darwin-arm64
-mv llang-0.0.16-darwin-arm64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.17/llang-0.0.17-darwin-arm64
+mv llang-0.0.17-darwin-arm64 llang
 ```
 
 ### Linux
 
 ```bash
-wget https://github.com/juliojimenez/L/releases/download/0.0.16/llang-0.0.16-linux-amd64
-mv llang-0.0.16-linux-amd64 llang
+wget https://github.com/juliojimenez/L/releases/download/0.0.17/llang-0.0.17-linux-amd64
+mv llang-0.0.17-linux-amd64 llang
 ```
 
 ## REPL
 
 ```bash
 ./llang
-L v0.0.16
+L v0.0.17
 
 >
 ```
@@ -133,9 +134,9 @@ L v0.0.16
 
 ```lisp
 > (define a 10)
-done
+()
 > (define b a)
-done
+()
 > a
 10
 > b
@@ -144,6 +145,19 @@ done
 done
 > x
 3
+```
+
+#### set!
+
+```lisp
+> (define x 10)
+()
+> x
+10
+> (set! x 20)
+()
+> x
+20
 ```
 
 ### Lists
@@ -176,6 +190,13 @@ done
 (cons 12 10)
 > (quote (cons #t 3))
 (cons #t 3)
+```
+
+The apostrophe or single-quote `'` is a shorthand for `quote`.
+
+```lisp
+> '(cons 12 10)
+(cons 12 10)
 ```
 
 #### list
